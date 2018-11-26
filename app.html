@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>01、操作活动对象</title>
+  <link rel="stylesheet" href="styles/app.css">
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <script src="bower_components/fabric.js/dist/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('c', {
+      width: window.innerWidth,
+      height: window.innerHeight,
+      backgroundColor: '#eee'
+    });
+    // canvas.setBackgroundImage('images/demo.png', canvas.renderAll.bind(canvas), {
+    //   originX: 'left',
+    //   originY: 'top'
+    // });
+    fabric.Image.fromURL('images/demo.png', function(img) {
+      canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
+        scaleX: canvas.width / img.width,
+        scaleY: canvas.height / img.height
+      });
+    });
+    canvas.on('mouse:wheel', function(opt) {
+      var delta = opt.e.deltaY;
+      var zoom = canvas.getZoom();
+      console.log(delta, zoom)
+      // if (zoom > 20) zoom = 20;
+      // if (zoom < 0.01) zoom = 0.01;
+      canvas.setZoom(zoom);
+      opt.e.preventDefault();
+      opt.e.stopPropagation();
+    })
+    canvas.on('mouse:down', function(opt) {
+      var evt = opt.e;
+      if (evt.altKey === true) {
+        this.isDragging = true;
+        this.selection = false;
+        this.lastPosX = evt.clientX;
+        this.lastPosY = evt.clientY;
+      }
+    });
+    canvas.on('mouse:move', function(opt) {
+      if (this.isDragging) {
+        var e = opt.e;
+        this.viewportTransform[4] += e.clientX - this.lastPosX;
+        this.viewportTransform[5] += e.clientY - this.lastPosY;
+        this.requestRenderAll();
+        this.lastPosX = e.clientX;
+        this.lastPosY = e.clientY;
+      }
+    });
+    canvas.on('mouse:up', function(opt) {
+      this.isDragging = false;
+      this.selection = true;
+    });
+    // canvas.add(rect1, rect2);
+    // rect1.on({
+    //   'moving': function(e) {
+    //     e.target.opacity = 0.5;
+    //   },
+    //   'modified': function(e) {
+    //     e.target.opacity = 1;
+    //   }
+    // });
+  </script>
+</body>
+</html>
