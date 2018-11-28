@@ -11,6 +11,8 @@
   + setHeight()
   + setBackgroundColor()
   + setBackgroundImage()
+  + setActiveObject('xx') 默认选中某个对象
+  + discardActiveObject() 取消选中
 + 属性
   + imageSmoothingEnabled 是否开启图片平滑处理；浏览器中默认开启
   + enableRetinaScaling 启用克隆图像的视网膜缩放
