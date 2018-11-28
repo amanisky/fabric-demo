@@ -10,6 +10,12 @@
   + setWidth()
   + setHeight()
   + setBackgroundColor()
+  + setBackgroundImage()
++ 属性
+  + imageSmoothingEnabled 是否开启图片平滑处理；浏览器中默认开启
+  + enableRetinaScaling 启用克隆图像的视网膜缩放
+  + stopContextMenu 是否取消鼠标右键默认事件
+  + fireRightClick 画布是否可以触发右键单击事件
 + 事件
   + 对象变化
     + object:moving 当画布上有对象移动时触发
@@ -63,6 +69,7 @@
 
 ### 参考链接
 + 01、对选中文字处理：上标、下标、清除
-+ 02、
++ 02、事件
++ 03、设置 canvas 背景图、取消鼠标右键默认行为等
 
 + canvas自适应屏幕大小：https://www.cnblogs.com/mihoutaoguniang/p/5998511.html

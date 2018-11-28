@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>03、设置 canvas 背景图、取消鼠标右键默认行为</title>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script src="./bower_components/jQuery/dist/jquery.js"></script>
+<script src="./bower_components/fabric.js/dist/fabric.js"></script>
+<script>
+  // 保存背景图
+  var oImg = null;
+  // 画布
+  var canvas = new fabric.Canvas('c', {
+    width: 800,
+    height: 600,
+    backgroundColor: '#ccc',
+    // 是否取消鼠标右键默认事件
+    stopContextMenu: true,
+    // 画布是否可以触发右键单击事件
+    fireRightClick: true,
+    // 关闭浏览器图片平滑处理
+    imageSmoothingEnabled: false,
+    // 关闭图像的视网膜缩放
+    enableRetinaScaling: false
+  });
+
+  // 设置背景图
+  canvas.setBackgroundImage('images/dragon.jpg', canvas.requestRenderAll.bind(canvas), {
+    top: 0,
+    left: 0,
+    scaleX: 0.2,
+    scaleY: 0.2
+  });
+
+  fabric.Image.fromURL('images/dragon.jpg', function (img) {
+    // 获取视网膜缩放值
+    var r = canvas.getRetinaScaling();
+    // 将图片添加到画布
+    canvas.add(img);
+    // 默认选中图片
+    canvas.setActiveObject(img);
+
+    // 图片缩放同时让背景图缩放
+    img.on('scaling', function() {
+      canvas.backgroundImage.scaleX = img.scaleX;
+		  canvas.backgroundImage.scaleY = img.scaleY;
+    });
+
+    img.on('mousedown', function (opt) {
+      if (opt.button === 3) {
+        alert('点击了鼠标右键')
+      }
+    });
+  }, {
+    left: 400,
+    top: 250,
+    scaleX: 0.2,
+    scaleY: 0.2,
+    // 禁用缩放翻转
+    lockScalingFlip: true,
+    // 限制最小缩放值
+    minScaleLimit: 0.05,
+    // 设置边界线与对象的内边距
+    padding: 5,
+    // 鼠标放在对象上的样式
+    hoverCursor: 'crossHair'
+  })
+</script>
+</body>
+</html>
