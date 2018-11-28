@@ -19,14 +19,17 @@
     height: 300,
     backgroundColor: '#ccc'
   });
+  // 无法输入
   var text = new fabric.Text('hello world', {
     fill: 'red',
     underline: true
   });
+  // 可输入默认不换行
   var itext = new fabric.IText('hello world', {
     fill: 'green',
     top: 80
   });
+  // 可输入默认根据空格换行
   var textbox = new fabric.Textbox('hello world', {
     fill: 'blue',
     top: 150
