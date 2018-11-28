@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>1、text、itext、textbox</title>
+</head>
+<body>
+<button id="sup">上标</button>
+<button id="sub">下标</button>
+<button id="clear">清除</button>
+<canvas id="c"></canvas>
+<script src="./bower_components/jQuery/dist/jquery.js"></script>
+<script src="./bower_components/fabric.js/dist/fabric.js"></script>
+<script>
+  var canvas = new fabric.Canvas('c', {
+    width: 500,
+    height: 300,
+    backgroundColor: '#ccc'
+  });
+  var text = new fabric.Text('hello world', {
+    fill: 'red',
+    underline: true
+  });
+  var itext = new fabric.IText('hello world', {
+    fill: 'green',
+    top: 80
+  });
+  var textbox = new fabric.Textbox('hello world', {
+    fill: 'blue',
+    top: 150
+  });
+  canvas.add(text, itext, textbox);
+  // 上标
+  $('#sup').click(function () {
+    var active = canvas.getActiveObject();
+    if (!active) return;
+    active.setSuperscript();
+    canvas.requestRenderAll();
+  });
+  // 下标
+  $('#sub').click(function () {
+    var active = canvas.getActiveObject();
+    if (!active) return;
+    active.setSubscript();
+    canvas.requestRenderAll();
+  });
+  // 清除
+  $('#clear').click(function () {
+    var active = canvas.getActiveObject();
+    if (!active) return;
+    // 清除选中对象样式
+    // active.setSelectionStyles({
+    //   fontSize: undefined,
+    //   deltaY: undefined,
+    // });
+    // 清除对象样式
+    itext.styles = {
+      fontSize: undefined,
+      deltaY: undefined
+    };
+    // itext.removeStyle('fontSize')
+    // itext.removeStyle('deltaY')
+    canvas.requestRenderAll();
+  });
+</script>
+</body>
+</html>
