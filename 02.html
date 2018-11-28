@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>02、事件</title>
+  <style>
+    #drag-me {
+      display: inline-block;
+      width: 100px;
+      background-color: purple;
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+<div id="drag-me" draggable="true" ondragstart="event.dataTransfer.setData('text/plain', '')">拖动我去画布</div>
+<canvas id="c"></canvas>
+<script src="./bower_components/jQuery/dist/jquery.js"></script>
+<script src="./bower_components/fabric.js/dist/fabric.js"></script>
+<script>
+  var canvas = new fabric.Canvas('c');
+  canvas.setWidth(500)
+  canvas.setHeight(500)
+  canvas.setBackgroundColor('red')
+  canvas.on('dragenter', function (opt) {
+    console.log('div 进入画布', opt)
+  });
+  canvas.on('dragover', function (opt) {
+    console.log('div 在画布上方', opt)
+  });
+  canvas.on('dragleave', function (opt) {
+    console.log('div 离开画布', opt)
+  });
+  canvas.on('drop', function (opt) {
+    console.log('div 在画布中放下', opt)
+  });
+</script>
+</body>
+</html>
