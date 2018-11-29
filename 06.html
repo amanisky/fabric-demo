@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>06、管理选区</title>
+</head>
+<body>
+<button id="group">变成组</button>
+<button id="ungroup">取消组</button>
+<button id="multiselect">全选</button>
+<button id="discard">取消</button>
+<canvas id="c"></canvas>
+<script src="./bower_components/jQuery/dist/jquery.js"></script>
+<script src="./bower_components/fabric.js/dist/fabric.js"></script>
+<script>
+  fabric.Object.prototype.transparentCorners = false;
+  var canvas = new fabric.Canvas('c', { width: 500, height: 300, backgroundColor: '#ccc' });
+  var red = new fabric.Rect({ top: 100, left: 0, width: 80, height: 50, fill: 'red' });
+  var blue = new fabric.Rect({ top: 0, left: 100, width: 50, height: 70, fill: 'blue' });
+  var green = new fabric.Rect({ top: 100, left: 100, width: 60, height: 60, fill: 'green' });
+  var orange = new fabric.Rect({ top: 100, left: 200, width: 60, height: 60, fill: 'orange' });
+  canvas.add(red, blue, green, orange);
+  $('#group').click(function () {
+    var action = canvas.getActiveObject();
+    if (!action) return;
+    if (action.type !== 'activeSelection') return;
+    action.toGroup();
+    canvas.requestRenderAll();
+  });
+  $('#ungroup').click(function () {
+    var action = canvas.getActiveObject();
+    if (!action) return;
+    if (action.type !== 'group') return;
+    action.toActiveSelection();
+    canvas.discardActiveObject().requestRenderAll();
+  });
+  $('#multiselect').click(function () {
+    canvas.discardActiveObject();
+    var sel = new fabric.ActiveSelection(canvas.getObjects(), {
+      canvas
+    });
+    canvas.setActiveObject(sel);
+    canvas.requestRenderAll();
+  });
+  $('#discard').click(function () {
+    canvas.discardActiveObject().requestRenderAll();
+  });
+</script>
+</body>
+</html>

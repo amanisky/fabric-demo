@@ -1,6 +1,10 @@
 ### Object
 + transparentCorners 控件是否透明
 
+### ActiveSelection
++ toGroup() 将选区变成组
++ toActiveSelection() 将组变成选区
+
 ### Canvas
 + 方法
   + getActiveObject() 获取画布上的选中对象
