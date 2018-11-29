@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>07、矩阵与对象相关属性的转换</title>
+  <style>
+    .flexbox {
+      display: flex;
+      padding-bottom: 20px;
+    }
+    .flexbox label {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+<h3>矩阵值【x轴缩放比例、x轴斜切角度、y轴斜切角度、y轴缩放比例、x轴平移量、y轴平移量】<button id="transform">转换</button></h3>
+<div class="flexbox">
+  <label>
+    x轴缩放比例<br>
+    <input type="number" step="0.01" id="scaleX">
+  </label>
+  <label>
+    x轴斜切角度<br>
+    <input type="number" step="0.01" id="skewX">
+  </label>
+  <label>
+    y轴斜切角度<br>
+    <input type="number" step="0.01" id="skewY">
+  </label>
+  <label>
+    y轴缩放比例<br>
+    <input type="number" step="0.01" id="scaleY">
+  </label>
+  <label>
+    x轴平移量<br>
+    <input type="number" step="0.01" id="translateX">
+  </label>
+  <label>
+    y轴平移量<br>
+    <input type="number" step="0.01" id="translateY">
+  </label>
+</div>
+<canvas id="c"></canvas>
+<script src="./bower_components/jQuery/dist/jquery.js"></script>
+<script src="./bower_components/fabric.js/dist/fabric.js"></script>
+<script>
+  var canvas = new fabric.Canvas('c', { width: 800, height: 650, backgroundColor: '#ccc' });
+  // fabric.Image.fromURL('images/printio.png', function(image) {
+  //   // image.transformMatrix = [0.5, 0, 0, 0.5, 0, 0];
+  //   // console.log(image.calcTransformMatrix(true))
+  //   console.log(image.calcOwnMatrix())
+  //   // console.log(image.transformMatrix)
+  //   console.log(canvas.transformMatrix)
+  //   canvas.add(image);
+  //   // var obj = canvas.item(0);
+  //   // console.log(obj)
+  // });
+  var rect = new fabric.Rect({ width: 100, height: 100, fill: 'red' });
+  rect.transformMatrix = [1, 0, 0, 1, 0, 0];
+  console.log(rect.calcOwnMatrix())
+  console.log(rect.calcTransformMatrix(true))
+  canvas.add(rect);
+</script>
+</body>
+</html>

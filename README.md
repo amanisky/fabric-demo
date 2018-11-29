@@ -73,9 +73,16 @@
   + setSelectionStyles() 设置选中字符的样式
   + removeStyle() 移除指定属性样式
 
-### 参考链接
+### 文件说明
 + 01、对选中文字处理：上标、下标、清除
 + 02、事件
 + 03、设置 canvas 背景图、取消鼠标右键默认行为等
++ 04、设置字体
++ 05、复制粘贴
++ 06、选区转组、组转选区
++ 07、矩阵与对象属性转换关系
 
+### 参考链接
++ 什么时候需要调用 setCoords 方法
+  + https://github.com/fabricjs/fabric.js/wiki/When-to-call-setCoords
 + canvas自适应屏幕大小：https://www.cnblogs.com/mihoutaoguniang/p/5998511.html
