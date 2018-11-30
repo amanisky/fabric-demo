@@ -14,8 +14,9 @@
   var canvas = new fabric.Canvas('c', { width: 500, height: 300, backgroundColor: '#ccc' });
   fabric.util.loadImage('images/bg01.png', function (img) {
     var pattern = new fabric.Pattern({ source: img, repeat: 'repeat' });
-    var rect = new fabric.Rect({ width: 400, height: 200, fill: pattern });
-    canvas.add(rect);
+    var points = [{ x: 185, y: 0 }, { x: 250, y: 100 }, { x: 385, y: 170 }, { x: 0, y: 245 }];
+    var polygon = new fabric.Polygon(points, { left: 10, top: 10, fill: pattern, objectCaching: false });
+    canvas.add(polygon);
   });
 </script>
 </body>

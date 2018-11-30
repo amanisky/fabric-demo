@@ -25,6 +25,8 @@
   + setBackgroundImage()
   + setActiveObject('xx') 默认选中某个对象
   + discardActiveObject() 取消选中
+  + getWidth()、setWidth()、getHeight()、setHeight()
+  + setDimensions
 + 属性
   + imageSmoothingEnabled 是否开启图片平滑处理；浏览器中默认开启
   + enableRetinaScaling 启用克隆图像的视网膜缩放
@@ -71,6 +73,8 @@
 + 方法
   + loadImage
   + groupSVGElements
+  + degreesToRadians 度转弧度
+  + getRandomInt 获取随机数
 
 ### Image
 + 方法
@@ -104,6 +108,7 @@
 + 10、网格
 + 11、读取 SVG 文件
 + 12、使用图案填充图形
++ 13、**修改对象时，会在原来的位置留下虚线框**
 
 ### 重点
 + 图形变换了，controls 也得做相应变换；否则就会出现错位

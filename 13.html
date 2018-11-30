@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>13、修改对象时，会在原来的位置留下虚线框</title>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script src="./bower_components/jQuery/dist/jquery.js"></script>
+<script src="./bower_components/fabric.js/dist/fabric.js"></script>
+<script>
+var canvas = new fabric.Canvas('c', { width: 500, height: 300, backgroundColor: '#ccc' });
+var rect = new fabric.Rect({ top: 10, width: 100, height: 100, fill: 'green', strokeWidth: 0 });
+var circle = new fabric.Circle({ left: 110, top: 10, radius: 50, fill: 'orange', strokeWidth: 0 });
+canvas.add(rect, circle);
+canvas.on('after:render', function() {
+  canvas.contextContainer.strokeStyle = 'red';
+  canvas.contextContainer.setLineDash([1, 5]);
+  canvas.forEachObject(function(obj) {
+    var bound = obj.getBoundingRect();
+    canvas.contextContainer.strokeRect(
+      bound.left + 0.5,
+      bound.top + 0.5,
+      bound.width,
+      bound.height
+    );
+  })
+});
+</script>
+</body>
+</html>
