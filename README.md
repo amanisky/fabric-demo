@@ -1,5 +1,9 @@
 ### Object
 + transparentCorners 控件是否透明
++ transformMatrix 对象的矩阵数组
++ calcTransformMatrix() 计算对象的矩阵
++ calcOwnMatrix() 计算对象自身的矩阵
++ setCoords() 重新计算控件的位置
 
 ### ActiveSelection
 + toGroup() 将选区变成组
@@ -58,7 +62,10 @@
     + dragover 画布之外的某元素在画布上方时触发
     + dragleave 画布之外的某元素离开画布时触发
     + drop 某元素在画布内放下时触发
-  
+
+### Image
++ 方法
+  + setPositionByOrigin(pos, originX, originY) 设置对象的位置，同时考虑对象的原点
 
 ### Text、IText、Textbox
 + 区别

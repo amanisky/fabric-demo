@@ -20,17 +20,16 @@
   fabric.Image.fromURL('images/qq.png', function(image) {
     // 反转矩阵 fabric.util.invertTransform(image.calcTransformMatrix())
     // 自定义的矩阵使图片进行缩放、扭曲、移动
-    image.transformMatrix = [1, 0, 0, -1, 200, 100];
+    var configMatrix = [1, 0, 0, -1, 200, 100]
+    image.transformMatrix = configMatrix;
     var currentT = image.calcTransformMatrix();
     console.log(1, currentT)
-    var configMatrix = image.transformMatrix;
-    console.log(2, transformMatrix)
     // 矩阵乘
     var mT = fabric.util.multiplyTransformMatrices(currentT, configMatrix);
-    console.log(3, mT);
+    console.log(2, mT);
     // 将矩阵乘结果转换为图片属性
     var options = fabric.util.qrDecompose(mT);
-    console.log(4, options);
+    console.log(3, options);
     var newCenter = { x: options.translateX, y: options.translateY };
     image.set({
       transformMatrix: [1, 0, 0, 1, 0, 0],
@@ -38,7 +37,9 @@
       flipY: false,
       ...options
     });
+    // 设置对象的位置，同时考虑对象的原点
     image.setPositionByOrigin(newCenter, 'center', 'center');
+    // 重新计算控件位置；否则会出现错位现象
     image.setCoords(false, true);
     canvas.add(image);
   });
