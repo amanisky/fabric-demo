@@ -89,6 +89,8 @@
 + 06、选区转组、组转选区
 + 07、**图形变换了，controls 也得做相应变换**
 + 08、根据图形边界判断是否与另一个图形相交
++ 09、clipTo 动画示例
+  + https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D
 
 ### 重点
 + 图形变换了，controls 也得做相应变换；否则就会出现错位

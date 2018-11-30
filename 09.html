@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>09、clipTo</title>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script src="./bower_components/jQuery/dist/jquery.js"></script>
+<script src="./bower_components/fabric.js/dist/fabric.js"></script>
+<script>
+  var radius = 20;
+  var canvas = new fabric.Canvas('c', { width: 500, height: 300, backgroundColor: '#ccc' });
+  fabric.Image.fromURL('images/qq.png', function (img) {
+    canvas.add(img);
+  }, {
+    top: 30,
+    left: 100,
+    clipTo: function (ctx) {
+      console.log(ctx)
+      ctx.arc(0, 0, radius, 0, Math.PI * 2, true);
+    }
+  });
+  (function animate() {
+    fabric.util.animate({
+      startValue: Math.round(radius) === 20 ? 20 : 120,
+      endValue: Math.round(radius) === 20 ? 120 : 20,
+      duration: 1000,
+      onChange: function(value) {
+        radius = value;
+        canvas.requestRenderAll();
+      },
+      onComplete: animate
+    });
+  })();
+</script>
+</body>
+</html>
