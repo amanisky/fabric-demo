@@ -5,6 +5,10 @@
 + calcOwnMatrix() 计算对象自身的矩阵
 + setCoords() 重新计算控件的位置
 
+### fabric
++ 方法
+  + loadSVGFromURL
+
 ### ActiveSelection
 + toGroup() 将选区变成组
 + toActiveSelection() 将组变成选区
@@ -63,9 +67,15 @@
     + dragleave 画布之外的某元素离开画布时触发
     + drop 某元素在画布内放下时触发
 
+### Util
++ 方法
+  + loadImage
+  + groupSVGElements
+
 ### Image
 + 方法
   + setPositionByOrigin(pos, originX, originY) 设置对象的位置，同时考虑对象的原点
+  + fromURL
 
 ### Text、IText、Textbox
 + 区别
@@ -91,6 +101,9 @@
 + 08、根据图形边界判断是否与另一个图形相交
 + 09、clipTo 动画示例
   + https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D
++ 10、网格
++ 11、读取 SVG 文件
++ 12、使用图案填充图形
 
 ### 重点
 + 图形变换了，controls 也得做相应变换；否则就会出现错位
