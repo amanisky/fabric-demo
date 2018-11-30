@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>10、网格</title>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script src="./bower_components/jQuery/dist/jquery.js"></script>
+<script src="./bower_components/fabric.js/dist/fabric.js"></script>
+<script>
+  var canvas = new fabric.Canvas('c', { width: 801, height:	501, backgroundColor: '#fff' });
+  draw_grid(canvas);
+  var rect = new fabric.Rect({ width: 100, height: 100, fill: 'orange' });
+  canvas.add(rect);
+  function draw_grid (canvas, opts = {}) {
+    var options = $.extend({
+      // 线之间的距离
+      distance: 20,
+      // 宽度
+      width: canvas.width,
+      // 高度
+      height: canvas.height,
+      params: {
+        // 描边颜色
+        stroke: 'red',
+        // 描边宽度
+        strokeWidth: 1,
+        // 虚线
+        strokeDashArray: [],
+        // 默认不可选择
+        selectable: false
+      }
+    }, opts);
+    // 需要绘制的条数
+    var gridLen = options.width / options.distance;
+    for (var i = 0; i < gridLen; i++) {
+      var distance = i * options.distance;
+      // 实线、虚线以及颜色切换
+      if (i % 5 === 0) {
+        options.params.strokeDashArray = [];
+        options.params.stroke = '#ccc';
+      }
+      else {
+        options.params.strokeDashArray = [1, 1];
+        options.params.stroke = '#ebebeb';
+      }
+      // 竖线
+      var horizontal = new fabric.Line([distance, 0, distance, options.width], options.params);
+      // 横线
+      var vertical = new fabric.Line([0, distance, options.width, distance], options.params);
+      canvas.add(horizontal, vertical);
+    }
+  }
+</script>
+</body>
+</html>

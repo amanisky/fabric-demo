@@ -12,14 +12,14 @@
 <script src="./bower_components/fabric.js/dist/fabric.js"></script>
 <script>
   var radius = 20;
-  var canvas = new fabric.Canvas('c', { width: 500, height: 300, backgroundColor: '#ccc' });
+  var canvas = new fabric.Canvas('c', { width: 500, height: 300 });
   fabric.Image.fromURL('images/qq.png', function (img) {
     canvas.add(img);
   }, {
     top: 30,
     left: 100,
     clipTo: function (ctx) {
-      console.log(ctx)
+      // ctx 原生的 CanvasRenderingContext2D 对象
       ctx.arc(0, 0, radius, 0, Math.PI * 2, true);
     }
   });
