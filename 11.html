@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>11、读取 SVG 文件</title>
+  <style>
+    body {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script src="./bower_components/jQuery/dist/jquery.js"></script>
+<script src="./bower_components/fabric.js/dist/fabric.js"></script>
+<script>
+  var canvas = new fabric.Canvas('c', { width: window.innerWidth, height: window.innerHeight, backgroundColor: '#ccc' });
+  fabric.loadSVGFromURL('images/01.svg', function (objects, options) {
+    var obj = fabric.util.groupSVGElements(objects, options);
+    for (var i = 1; i < 4; i++) {
+      obj.clone(function(i) {
+        return function(clone) {
+          clone.set({ left: i * 100 });
+          canvas.add(clone);
+        };
+      }(i))
+    }
+  });
+</script>
+</body>
+</html>
