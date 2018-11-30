@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>08、根据图形边界判断是否与另一个图形相交</title>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script src="./bower_components/jQuery/dist/jquery.js"></script>
+<script src="./bower_components/fabric.js/dist/fabric.js"></script>
+<script>
+  var canvas = new fabric.Canvas('c', { width: 500, height: 300, backgroundColor: '#ccc' });
+  var rect = new fabric.Rect({ width: 100, height: 100, fill: '#7fe37f' });
+  var circle  = new fabric.Circle ({ radius: 50, left: 275, top: 75, fill: '#ff7f7f' });
+  var triangle = new fabric.Triangle({ width: 100, height: 100, left: 50, top: 120, fill: 'orange' });
+  canvas.add(rect, circle, triangle);
+  canvas.on({
+    'object:moving': onChange,
+    'object:scaling': onChange,
+    'object:rotating': onChange
+  });
+  function onChange (opt) {
+    // 重新绘制对象的控件
+    opt.target.setCoords();
+    canvas.forEachObject(function(obj) {
+      if (obj === opt.target) return;
+      var isIntersect = opt.target.intersectsWithObject(obj);
+      obj.set('opacity', isIntersect ? 0.5 : 1);
+    });
+  }
+</script>
+</body>
+</html>

@@ -88,9 +88,36 @@
 + 05、复制粘贴
 + 06、选区转组、组转选区
 + 07、**图形变换了，controls 也得做相应变换**
++ 08、根据图形边界判断是否与另一个图形相交
 
 ### 重点
-+ 图形变换了，controls 也得做相应变换；否则就会出现错位；
++ 图形变换了，controls 也得做相应变换；否则就会出现错位
+
+### 官方示例
++ 字体上标、下标
+  + http://fabricjs.com/super-sub-script
++ 事件
+  + http://fabricjs.com/events
++ 复制、粘贴
+  + http://fabricjs.com/copypaste
++ 选区管理
+  + 选区 -> 组
+  + 组 -> 选区
+  + 设置默认选区
+  + 全选
+  + 丢弃选区
+  + http://fabricjs.com/manage-selection
++ 矩阵转换
+  + http://fabricjs.com/matrix-transformation
++ 自定义控件
+  + http://fabricjs.com/controls-customization
++ 独立控件
+  + http://fabricjs.com/controls
++ 自由绘图
+  + http://fabricjs.com/freedrawing
++ 图形边界交叉处理
+  + http://fabricjs.com/intersection  
+
 
 ### 参考链接
 + 什么时候需要调用 setCoords 方法
