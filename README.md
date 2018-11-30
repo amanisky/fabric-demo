@@ -80,9 +80,20 @@
 + 04、设置字体
 + 05、复制粘贴
 + 06、选区转组、组转选区
-+ 07、矩阵与对象属性转换关系
++ 07、**图形变换了，controls 也得做相应变换**
+
+### 重点
++ 图形变换了，controls 也得做相应变换；否则就会出现错位；
 
 ### 参考链接
 + 什么时候需要调用 setCoords 方法
   + https://github.com/fabricjs/fabric.js/wiki/When-to-call-setCoords
++ ViewBox
+  + https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/viewBox
++ "生动"讲解——矩阵的空间变换
+  + https://blog.csdn.net/a396901990/article/details/44905791
++ 矩阵乘法
+  + https://zh.wikipedia.org/wiki/矩陣乘法
++ 转置矩阵
+  + https://zh.wikipedia.org/wiki/转置矩阵  
 + canvas自适应屏幕大小：https://www.cnblogs.com/mihoutaoguniang/p/5998511.html
