@@ -109,6 +109,7 @@
 + 11、读取 SVG 文件
 + 12、使用图案填充图形
 + 13、**修改对象时，会在原来的位置留下虚线框**
++ 14、**让拖动的对象透明度变化（objectCaching 的应用）**
 
 ### 重点
 + 图形变换了，controls 也得做相应变换；否则就会出现错位
@@ -149,5 +150,7 @@
 + 矩阵乘法
   + https://zh.wikipedia.org/wiki/矩陣乘法
 + 转置矩阵
-  + https://zh.wikipedia.org/wiki/转置矩阵  
+  + https://zh.wikipedia.org/wiki/转置矩阵
++ 通过按钮缩放、移动画布
+  + http://jsfiddle.net/dudih/y0z33gym/  
 + canvas自适应屏幕大小：https://www.cnblogs.com/mihoutaoguniang/p/5998511.html

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>14、让拖动的对象透明度变化</title>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script src="./bower_components/jQuery/dist/jquery.js"></script>
+<script src="./bower_components/fabric.js/dist/fabric.js"></script>
+<script>
+  var canvas = new fabric.Canvas('c', { width: 500, height: 300, backgroundColor: '#ccc' });
+  fabric.Image.fromURL('images/qq.png', function (img) {
+    canvas.add(img);
+  }, { scaleX: 0.5, scaleY: 0.5 });
+  fabric.loadSVGFromURL('images/tiger.svg', function (obj, opts) {
+    var tiger = fabric.util.groupSVGElements(obj, opts);
+    // objectCaching 关闭时放大时不会失真，但性能不好；开启时性能好，放大会失真，但操作结束后会调整清晰
+    tiger.set({ scaleX: 0.2, scaleY: 0.2, left: 130, top: 10, objectCaching: false })
+    canvas.add(tiger);
+  });
+  canvas.on({
+    'object:moving': function(e) {
+      e.target.opacity = 0.5;
+    },
+    'object:modified': function(e) {
+      e.target.opacity = 1;
+    }
+  });
+</script>
+</body>
+</html>
