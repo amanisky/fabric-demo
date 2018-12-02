@@ -157,3 +157,10 @@
 + 通过按钮缩放、移动画布
   + http://jsfiddle.net/dudih/y0z33gym/  
 + canvas自适应屏幕大小：https://www.cnblogs.com/mihoutaoguniang/p/5998511.html
++ jsfiddle frabic 案例
+  + **http://jsfiddle.net/user/softvar/fiddles/**
+  + **http://jsfiddle.net/user/fabricjs/fiddles/**
++ 实现下载
+  + **http://41j.com/blog/2015/01/creating-svg-javascript-using-fabricjs-downloading-locally/**
++ undo、redo
+  + **https://jsfiddle.net/tazehale/q2mz23xb/**  
