@@ -15,6 +15,7 @@
 <script src="./bower_components/fabric.js/dist/fabric.js"></script>
 <script>
   var config = {
+    initState: "",
     // 当前画布状态
     canvasState: [],
     // 当前状态索引
@@ -35,6 +36,8 @@
 
   // 创建画布
   var canvas = new fabric.Canvas('c', { width: 500, height: 300, backgroundColor: '#ccc' });
+  // config.canvasState.push(canvas.toJSON());
+  config.initState = canvas.toJSON();
   var $undo = $('#undo');
   var $redo = $('#redo');
 
@@ -64,7 +67,8 @@
                 config.undoFinishedStatus = 1;
               });
             } else if (config.currentStateIndex == 0) {
-              canvas.clear();
+              // canvas.clear();
+              canvas.loadFromJSON(config.initState, canvas.renderAll.bind(canvas));
               config.undoFinishedStatus = 1;
               config.undoButton.disabled = "disabled";
               config.redoButton.removeAttribute('disabled');
