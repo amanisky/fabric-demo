@@ -65,10 +65,11 @@
       });
       _canvasObject.add(rect);
       _canvasObject.setActiveObject(rect);
-      // _canvasObject.renderAll();
+      _canvasObject.renderAll();
     }
 
     var updateCanvasState = function () {
+      console.log('触发了改变...')
       if ((_config.undoStatus == false && _config.redoStatus == false)) {
         var jsonData = _canvasObject.toJSON();
         var canvasAsJson = JSON.stringify(jsonData);
@@ -97,6 +98,7 @@
           _config.undoStatus = false;
         } else {
           if (_config.canvasState.length >= 1) {
+            console.log(3333)
             _config.undoFinishedStatus = 0;
             if (_config.currentStateIndex != 0) {
               _config.undoStatus = true;
@@ -121,6 +123,7 @@
           }
         }
       }
+      console.log('undo', _config);
     }
 
     var redo = function () {
@@ -148,6 +151,7 @@
           }
         }
       }
+      console.log('redo', _config);
     }
 
     return {

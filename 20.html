@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>20、重做、撤销</title>
+</head>
+<body>
+<button id="undo" disabled>撤销</button>
+<button id="redo" disabled>重做</button>
+<button id="rect">矩形</button>
+<canvas id="c"></canvas>
+<script src="./bower_components/jQuery/dist/jquery.js"></script>
+<script src="./bower_components/fabric.js/dist/fabric.js"></script>
+<script>
+  var config = {
+    // 当前画布状态
+    canvasState: [],
+    // 当前状态索引
+    currentStateIndex: -1,
+    // undo 按钮状态
+    undoStatus: false,
+    // redo 按钮状态
+    redoStatus: false,
+    // undo 按钮完成状态
+    undoFinishedStatus: 1,
+    // redo 按钮完成状态
+    redoFinishedStatus: 1,
+    // undo 按钮
+    undoButton: document.getElementById('undo'),
+    // redo 按钮
+    redoButton: document.getElementById('redo'),
+  };
+
+  // 创建画布
+  var canvas = new fabric.Canvas('c', { width: 500, height: 300, backgroundColor: '#ccc' });
+  var $undo = $('#undo');
+  var $redo = $('#redo');
+
+  $('#rect').click(function () {
+    var rect = new fabric.Rect({ width: 50, height: 50, fill: 'red' });
+    canvas.add(rect).setActiveObject(rect).requestRenderAll();
+  });
+
+  $undo.click(function () {
+    if (config.undoFinishedStatus) {
+        if (config.currentStateIndex == -1) {
+          config.undoStatus = false;
+        } else {
+          if (config.canvasState.length >= 1) {
+            config.undoFinishedStatus = 0;
+            if (config.currentStateIndex != 0) {
+              config.undoStatus = true;
+              canvas.loadFromJSON(config.canvasState[config.currentStateIndex - 1], function () {
+                var jsonData = JSON.parse(config.canvasState[config.currentStateIndex - 1]);
+                canvas.renderAll();
+                config.undoStatus = false;
+                config.currentStateIndex -= 1;
+                config.undoButton.removeAttribute("disabled");
+                if (config.currentStateIndex !== config.canvasState.length - 1) {
+                  config.redoButton.removeAttribute('disabled');
+                }
+                config.undoFinishedStatus = 1;
+              });
+            } else if (config.currentStateIndex == 0) {
+              canvas.clear();
+              config.undoFinishedStatus = 1;
+              config.undoButton.disabled = "disabled";
+              config.redoButton.removeAttribute('disabled');
+              config.currentStateIndex -= 1;
+            }
+          }
+        }
+      }
+  });
+
+  $redo.click(function () {
+    if (config.redoFinishedStatus) {
+        if ((config.currentStateIndex == config.canvasState.length - 1) && config.currentStateIndex != -1) {
+          config.redoButton.disabled = "disabled";
+        } else {
+          if (config.canvasState.length > config.currentStateIndex && config.canvasState.length != 0) {
+            config.redoFinishedStatus = 0;
+            config.redoStatus = true;
+            canvas.loadFromJSON(config.canvasState[config.currentStateIndex + 1], function () {
+              var jsonData = JSON.parse(config.canvasState[config.currentStateIndex + 1]);
+              canvas.renderAll();
+              config.redoStatus = false;
+              config.currentStateIndex += 1;
+              if (config.currentStateIndex != -1) {
+                config.undoButton.removeAttribute('disabled');
+              }
+              config.redoFinishedStatus = 1;
+              if ((config.currentStateIndex == config.canvasState.length - 1) && config.currentStateIndex !=
+                -1) {
+                config.redoButton.disabled = "disabled";
+              }
+            });
+          }
+        }
+      }
+  });
+
+  // 事件监听
+  canvas
+    .on('object:modified', function () {
+      updateCanvasState();
+    })
+    .on('object:added', function () {
+      updateCanvasState();
+    });
+
+  // 更新画布状态
+  function updateCanvasState () {
+    if((config.undoStatus === false && config.redoStatus === false)){
+			var jsonData = canvas.toJSON();
+			var canvasAsJson = JSON.stringify(jsonData);
+			if(config.currentStateIndex < config.canvasState.length - 1){
+        // 插入状态的索引值
+				var indexToBeInserted = config.currentStateIndex + 1;
+				config.canvasState[indexToBeInserted] = canvasAsJson;
+        // 保留的元素数量
+				var numberOfElementsToRetain = indexToBeInserted + 1;
+				config.canvasState = config.canvasState.splice(0, numberOfElementsToRetain);
+			} else {
+	    	config.canvasState.push(canvasAsJson);
+        config.undoButton.removeAttribute('disabled');
+			}
+	    config.currentStateIndex = config.canvasState.length - 1;
+		}
+    console.log('updateCanvasState', config)
+  }
+</script>
+</body>
+</html>
