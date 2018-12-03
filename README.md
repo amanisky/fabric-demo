@@ -114,9 +114,11 @@
 + 15、**缩放、移动画布**
 + 16、与画布外的对象交互
 + 17、**扩展自定义属性，用来传递数据**
++ 18、**加载SVG不分组**
 
 ### 重点
 + 图形变换了，controls 也得做相应变换；否则就会出现错位
++ 基于 angularjs 很全面的案例：http://fabricjs.com/kitchensink
 
 ### 官方示例
 + 字体上标、下标
@@ -145,6 +147,9 @@
 
 
 ### 参考链接
++ 画图工具
+  + http://zwibbler.com/
+  + http://smashinghub.com/10-best-html5-sketching-and-drawing-tools-for-designers.htm
 + 什么时候需要调用 setCoords 方法
   + https://github.com/fabricjs/fabric.js/wiki/When-to-call-setCoords
 + ViewBox

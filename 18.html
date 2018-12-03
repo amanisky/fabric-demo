@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>18、加载SVG不分组</title>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script src="./bower_components/jQuery/dist/jquery.js"></script>
+<script src="./bower_components/fabric.js/dist/fabric.js"></script>
+<script>
+var canvas = new fabric.Canvas('c', { width: 2000, height: 800, backgroundColor: '#ccc' });
+fabric.loadSVGFromURL('images/floor.svg', function(objects, options) {
+  canvas.renderOnAddRemove = false;
+  canvas.add.apply(canvas, objects);
+  canvas.renderOnAddRemove = true;
+  canvas.renderAll();
+});
+</script>
+</body>
+</html>
