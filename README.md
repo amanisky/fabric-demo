@@ -32,6 +32,7 @@
   + enableRetinaScaling 启用克隆图像的视网膜缩放
   + stopContextMenu 是否取消鼠标右键默认事件
   + fireRightClick 画布是否可以触发右键单击事件
+  + renderOnAddRemove
 + 事件
   + 对象变化
     + object:moving 当画布上有对象移动时触发

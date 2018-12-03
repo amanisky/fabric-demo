@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>19、Undo、Redo</title>
+</head>
+
+<body>
+<button id="undo">undo</button>
+<button id="redo">redo</button>
+<button id="add">add</button>
+<canvas id="c"></canvas>
+<script src="./bower_components/jQuery/dist/jquery.js"></script>
+<script src="./bower_components/fabric.js/dist/fabric.js"></script>
+<script>
+  var canvasDemo = (function () {
+    var _canvasObject = new fabric.Canvas('c', {
+      width: 600,
+      height: 400,
+      backgroundColor: "#f5deb3"
+    });
+    var _config = {
+      // 当前画布状态
+      canvasState: [],
+      // 当前状态索引
+      currentStateIndex: -1,
+      // undo 按钮状态
+      undoStatus: false,
+      // redo 按钮状态
+      redoStatus: false,
+      // undo 按钮完成状态
+      undoFinishedStatus: 1,
+      // redo 按钮完成状态
+      redoFinishedStatus: 1,
+      // undo 按钮
+      undoButton: document.getElementById('undo'),
+      // redo 按钮
+      redoButton: document.getElementById('redo'),
+    };
+
+    _canvasObject.on(
+      'object:modified',
+      function () {
+        updateCanvasState();
+      }
+    );
+
+    _canvasObject.on(
+      'object:added',
+      function () {
+        updateCanvasState();
+      }
+    );
+
+    var addObject = function () {
+      var rect = new fabric.Rect({
+        left: 100,
+        top: 100,
+        fill: 'red',
+        width: 200,
+        height: 200
+      });
+      _canvasObject.add(rect);
+      _canvasObject.setActiveObject(rect);
+      // _canvasObject.renderAll();
+    }
+
+    var updateCanvasState = function () {
+      if ((_config.undoStatus == false && _config.redoStatus == false)) {
+        var jsonData = _canvasObject.toJSON();
+        var canvasAsJson = JSON.stringify(jsonData);
+        if (_config.currentStateIndex < _config.canvasState.length - 1) {
+          console.log(1111)
+          // 插入的索引
+          var indexToBeInserted = _config.currentStateIndex + 1;
+          _config.canvasState[indexToBeInserted] = canvasAsJson;
+          // 保留的元素数量
+          var numberOfElementsToRetain = indexToBeInserted + 1;
+          _config.canvasState = _config.canvasState.splice(0, numberOfElementsToRetain);
+        } else {
+          _config.canvasState.push(canvasAsJson);
+        }
+        _config.currentStateIndex = _config.canvasState.length - 1;
+        if ((_config.currentStateIndex == _config.canvasState.length - 1) && _config.currentStateIndex != -1) {
+          _config.redoButton.disabled = "disabled";
+        }
+      }
+      console.log(_config);
+    }
+
+    var undo = function () {
+      if (_config.undoFinishedStatus) {
+        if (_config.currentStateIndex == -1) {
+          _config.undoStatus = false;
+        } else {
+          if (_config.canvasState.length >= 1) {
+            _config.undoFinishedStatus = 0;
+            if (_config.currentStateIndex != 0) {
+              _config.undoStatus = true;
+              _canvasObject.loadFromJSON(_config.canvasState[_config.currentStateIndex - 1], function () {
+                var jsonData = JSON.parse(_config.canvasState[_config.currentStateIndex - 1]);
+                _canvasObject.renderAll();
+                _config.undoStatus = false;
+                _config.currentStateIndex -= 1;
+                _config.undoButton.removeAttribute("disabled");
+                if (_config.currentStateIndex !== _config.canvasState.length - 1) {
+                  _config.redoButton.removeAttribute('disabled');
+                }
+                _config.undoFinishedStatus = 1;
+              });
+            } else if (_config.currentStateIndex == 0) {
+              _canvasObject.clear();
+              _config.undoFinishedStatus = 1;
+              _config.undoButton.disabled = "disabled";
+              _config.redoButton.removeAttribute('disabled');
+              _config.currentStateIndex -= 1;
+            }
+          }
+        }
+      }
+    }
+
+    var redo = function () {
+      if (_config.redoFinishedStatus) {
+        if ((_config.currentStateIndex == _config.canvasState.length - 1) && _config.currentStateIndex != -1) {
+          _config.redoButton.disabled = "disabled";
+        } else {
+          if (_config.canvasState.length > _config.currentStateIndex && _config.canvasState.length != 0) {
+            _config.redoFinishedStatus = 0;
+            _config.redoStatus = true;
+            _canvasObject.loadFromJSON(_config.canvasState[_config.currentStateIndex + 1], function () {
+              var jsonData = JSON.parse(_config.canvasState[_config.currentStateIndex + 1]);
+              _canvasObject.renderAll();
+              _config.redoStatus = false;
+              _config.currentStateIndex += 1;
+              if (_config.currentStateIndex != -1) {
+                _config.undoButton.removeAttribute('disabled');
+              }
+              _config.redoFinishedStatus = 1;
+              if ((_config.currentStateIndex == _config.canvasState.length - 1) && _config.currentStateIndex !=
+                -1) {
+                _config.redoButton.disabled = "disabled";
+              }
+            });
+          }
+        }
+      }
+    }
+
+    return {
+      addObject: addObject,
+      undoButton: _config.undoButton,
+      redoButton: _config.redoButton,
+      undo: undo,
+      redo: redo,
+    }
+  })();
+
+  canvasDemo.undoButton.addEventListener('click', function () {
+    canvasDemo.undo();
+  });
+
+  canvasDemo.redoButton.addEventListener('click', function () {
+    canvasDemo.redo();
+  });
+
+  canvasDemo.addObject();
+</script>
+</body>
+
+</html>
