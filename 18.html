@@ -11,9 +11,98 @@
 <script src="./bower_components/jQuery/dist/jquery.js"></script>
 <script src="./bower_components/fabric.js/dist/fabric.js"></script>
 <script>
+  fabric.Textbox.prototype._wrapLine = function(_line, lineIndex, desiredWidth) {
+    var lineWidth = 0,
+      graphemeLines = [],
+      line = [],
+      // spaces in different languges?
+      words = _line.split(this._reSpaceAndTab),
+      word = '',
+      offset = 0,
+      infix = ' ',
+      wordWidth = 0,
+      infixWidth = 0,
+      largestWordWidth = 0,
+      lineJustStarted = true,
+      additionalSpace = this._getWidthOfCharSpacing(),
+      textWidth = this._measureWord(_line, lineIndex, offset);
+
+    if (this.ellipsis && textWidth > desiredWidth && !this.isEditing) {
+      var ellipsis = '...';
+      var length = _line.length;
+      while (textWidth >= desiredWidth && length-- > 0) {
+        _line = _line.substring(0, length);
+        textWidth = this._measureWord(_line, lineIndex, offset);
+      }
+      graphemeLines.push([_line + ellipsis]);
+      return graphemeLines;
+    } else {
+      for (var i = 0; i < words.length; i++) {
+        // i would avoid resplitting the graphemes
+        word = fabric.util.string.graphemeSplit(words[i]);
+        wordWidth = this._measureWord(word, lineIndex, offset);
+        offset += word.length;
+
+        lineWidth += infixWidth;
+
+        if (this.breakWords && wordWidth > desiredWidth || this.ellipsis && this.isEditing) {
+          line.push(infix);
+          // var word = word.split('');
+          while (word.length) {
+            letterWidth = this._measureWord(word[0], lineIndex, offset);
+            if (lineWidth + letterWidth > desiredWidth) {
+              graphemeLines.push(line);
+              line = [];
+              lineWidth = 0;
+            }
+            line.push(word.shift());
+            offset++;
+            lineWidth += letterWidth;
+          }
+          word = '';
+        } else {
+          lineWidth += wordWidth - additionalSpace;
+        }
+
+        if (lineWidth >= desiredWidth && !lineJustStarted) {
+          graphemeLines.push(line);
+          line = [];
+          lineWidth = wordWidth;
+          lineJustStarted = true;
+        }
+
+        if (!lineJustStarted) {
+          line.push(infix);
+        }
+        line = line.concat(word);
+
+        infixWidth = this._measureWord([infix], lineIndex, offset);
+        offset++;
+        lineJustStarted = false;
+        // keep track of largest word
+        if (wordWidth > largestWordWidth && !this.breakWords && !this.ellipsis) {
+          largestWordWidth = wordWidth;
+        }
+      }
+
+      i && graphemeLines.push(line);
+
+      if (largestWordWidth > this.dynamicMinWidth) {
+        this.dynamicMinWidth = largestWordWidth - additionalSpace;
+      }
+
+      return graphemeLines;
+    }
+  };
 var canvas = new fabric.Canvas('c', { width: 2000, height: 800, backgroundColor: '#ccc' });
 fabric.loadSVGFromURL('images/floor.svg', function(objects, options) {
   canvas.renderOnAddRemove = false;
+  for (var item of objects) {
+    if (item.type === 'text') {
+      item.set('ellipsis', true);
+      // item.scale(0.5);
+    }
+  }
   canvas.add.apply(canvas, objects);
   canvas.renderOnAddRemove = true;
   canvas.renderAll();

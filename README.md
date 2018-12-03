@@ -120,6 +120,7 @@
 ### 重点
 + 图形变换了，controls 也得做相应变换；否则就会出现错位
 + 基于 angularjs 很全面的案例：http://fabricjs.com/kitchensink
++ fabricjs ellipsis text：https://github.com/fabricjs/fabric.js/issues/4000
 
 ### 官方示例
 + 字体上标、下标
