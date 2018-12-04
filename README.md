@@ -171,4 +171,6 @@
 + 实现下载
   + **http://41j.com/blog/2015/01/creating-svg-javascript-using-fabricjs-downloading-locally/**
 + undo、redo
-  + **https://jsfiddle.net/tazehale/q2mz23xb/**  
+  + **https://jsfiddle.net/tazehale/q2mz23xb/**
++ toJSON 时附加自定义属性  
+  + https://itnext.io/video-element-serialization-and-deserialization-of-canvas-fc5dbf47666d  

@@ -96,8 +96,7 @@
                 config.undoButton.removeAttribute('disabled');
               }
               config.redoFinishedStatus = 1;
-              if ((config.currentStateIndex == config.canvasState.length - 1) && config.currentStateIndex !=
-                -1) {
+              if ((config.currentStateIndex === config.canvasState.length - 1) && config.currentStateIndex !== -1) {
                 config.redoButton.disabled = "disabled";
               }
             });
@@ -132,6 +131,10 @@
         config.undoButton.removeAttribute('disabled');
 			}
 	    config.currentStateIndex = config.canvasState.length - 1;
+      // 撤销之后，做了其他操作，不允许重做
+      if ((config.currentStateIndex === config.canvasState.length - 1) && config.currentStateIndex !== -1) {
+        config.redoButton.disabled = "disabled";
+      }
 		}
     console.log('updateCanvasState', config)
   }
