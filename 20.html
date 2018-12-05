@@ -132,6 +132,9 @@
         config.undoButton.removeAttribute('disabled');
 			}
 	    config.currentStateIndex = config.canvasState.length - 1;
+      if ((config.currentStateIndex == config.canvasState.length - 1) && config.currentStateIndex != -1) {
+        config.redoButton.disabled = "disabled";
+      }
 		}
     console.log('updateCanvasState', config)
   }
