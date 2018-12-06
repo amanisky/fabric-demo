@@ -177,3 +177,5 @@
   + **http://41j.com/blog/2015/01/creating-svg-javascript-using-fabricjs-downloading-locally/**
 + undo、redo
   + **https://jsfiddle.net/tazehale/q2mz23xb/**  
++ 读取 svg 不分组的另一种实现方式
+  http://www.independent-software.com/loading-an-svg-image-with-fabric-js.html  
