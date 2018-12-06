@@ -121,6 +121,8 @@
 + 21、网格放入组中，方便显示和隐藏
 + 22、保存为图片
 + 23、**svg base64 动态网格**
++ 24、**使用生成的网格作为画布背景平铺**
+  + 参考地址：http://fabricjs.com/test/svg_export/bg_patterns_gradients.html
 
 ### 重点
 + 图形变换了，controls 也得做相应变换；否则就会出现错位

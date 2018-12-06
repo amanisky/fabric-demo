@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>24、使用生成的网格作为画布背景平铺</title>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script src="./bower_components/jQuery/dist/jquery.js"></script>
+<script src="./bower_components/fabric.js/dist/fabric.js"></script>
+<script>
+/**
+ * 生成网格 svg 的 base64 url
+ */
+function generateGridSvgUrl(smallGridWidth, gridStrokeColor = 'gray') {
+  var largeGridWidth = smallGridWidth * 4
+  var svgStr = `
+    <svg width="${largeGridWidth}" height="${largeGridWidth}" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="smallGrid" width="${smallGridWidth}" height="${smallGridWidth}" patternUnits="userSpaceOnUse">
+         <path d="M ${smallGridWidth} 0 L 0 0 0 ${smallGridWidth}" fill="none" stroke="${gridStrokeColor}" stroke-width="0.5"/>
+        </pattern>
+        <pattern id="grid" width="${largeGridWidth}" height="${largeGridWidth}" patternUnits="userSpaceOnUse">
+          <rect width="${largeGridWidth}" height="${largeGridWidth}" fill="url(#smallGrid)"/>
+          <path d="M ${largeGridWidth} 0 L 0 0 0 ${largeGridWidth}" fill="none" stroke="${gridStrokeColor}" stroke-width="1"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#grid)" />
+    </svg>
+  `
+  var encodedData = window.btoa(svgStr)
+  return `data:image/svg+xml;base64,${encodedData}`
+}
+var canvas = new fabric.Canvas('c', { width: 500, height: 300 })
+var grid = generateGridSvgUrl(20)
+// 参考地址：http://fabricjs.com/test/svg_export/bg_patterns_gradients.html
+canvas.setBackgroundColor({ source: grid, repeat: 'repeat' }, canvas.renderAll.bind(canvas))
+</script>
+</body>
+</html>
