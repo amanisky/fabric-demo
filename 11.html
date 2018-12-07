@@ -17,7 +17,7 @@
 <script src="./bower_components/fabric.js/dist/fabric.js"></script>
 <script>
   var canvas = new fabric.Canvas('c', { width: window.innerWidth, height: window.innerHeight, backgroundColor: '#ccc' });
-  fabric.loadSVGFromURL('images/01.svg', function (objects, options) {
+  fabric.loadSVGFromURL('images/stall.svg', function (objects, options) {
     var obj = fabric.util.groupSVGElements(objects, options);
     for (var i = 1; i < 4; i++) {
       obj.clone(function(i) {
