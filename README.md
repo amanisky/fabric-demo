@@ -180,4 +180,6 @@
 + undo、redo
   + **https://jsfiddle.net/tazehale/q2mz23xb/**  
 + 读取 svg 不分组的另一种实现方式
-  http://www.independent-software.com/loading-an-svg-image-with-fabric-js.html  
+  + http://www.independent-software.com/loading-an-svg-image-with-fabric-js.html
++ 在画布上绘制圆
+  + http://jsfiddle.net/8u1cqasa/17/  
