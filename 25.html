@@ -118,6 +118,7 @@
   // 更新画布状态
   function updateCanvasState () {
     if((config.undoStatus === false && config.redoStatus === false)){
+      // debugger;
 			var jsonData = canvas.toJSON();
 			var canvasAsJson = JSON.stringify(jsonData);
 			if(config.currentStateIndex < config.canvasState.length - 1){
