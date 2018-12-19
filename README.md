@@ -152,7 +152,9 @@
 + 自由绘图
   + http://fabricjs.com/freedrawing
 + 图形边界交叉处理
-  + http://fabricjs.com/intersection  
+  + http://fabricjs.com/intersection
++ 粘贴图片到画布
+  + https://codepen.io/Nikki0417/pen/YYJKbQ  
 
 
 ### 参考链接
