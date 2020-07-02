@@ -95,14 +95,9 @@
               if (config.currentStateIndex != -1) {
                 config.undoButton.removeAttribute('disabled');
               }
-<<<<<<< HEAD
-              config.redoFinishedStatus = 1;
-              if ((config.currentStateIndex === config.canvasState.length - 1) && config.currentStateIndex !== -1) {
-=======
               config.redoFinishedStatus = true;
               if ((config.currentStateIndex == config.canvasState.length - 1) && config.currentStateIndex !=
                 -1) {
->>>>>>> 17e76822e6cd1a2ab27640bba1258dd68f39fe8b
                 config.redoButton.disabled = "disabled";
               }
             });
@@ -123,6 +118,7 @@
   // 更新画布状态
   function updateCanvasState () {
     if((config.undoStatus === false && config.redoStatus === false)){
+      // debugger;
 			var jsonData = canvas.toJSON();
 			var canvasAsJson = JSON.stringify(jsonData);
 			if(config.currentStateIndex < config.canvasState.length - 1){
@@ -137,12 +133,7 @@
         config.undoButton.removeAttribute('disabled');
 			}
 	    config.currentStateIndex = config.canvasState.length - 1;
-<<<<<<< HEAD
-      // 撤销之后，做了其他操作，不允许重做
-      if ((config.currentStateIndex === config.canvasState.length - 1) && config.currentStateIndex !== -1) {
-=======
       if ((config.currentStateIndex == config.canvasState.length - 1) && config.currentStateIndex != -1) {
->>>>>>> 17e76822e6cd1a2ab27640bba1258dd68f39fe8b
         config.redoButton.disabled = "disabled";
       }
 		}

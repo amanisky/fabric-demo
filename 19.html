@@ -69,12 +69,10 @@
     }
 
     var updateCanvasState = function () {
-      console.log('触发了改变...')
       if ((_config.undoStatus == false && _config.redoStatus == false)) {
         var jsonData = _canvasObject.toJSON();
         var canvasAsJson = JSON.stringify(jsonData);
         if (_config.currentStateIndex < _config.canvasState.length - 1) {
-          console.log(1111)
           // 插入的索引
           var indexToBeInserted = _config.currentStateIndex + 1;
           _config.canvasState[indexToBeInserted] = canvasAsJson;
@@ -89,7 +87,6 @@
           _config.redoButton.disabled = "disabled";
         }
       }
-      console.log(_config);
     }
 
     var undo = function () {
@@ -98,7 +95,6 @@
           _config.undoStatus = false;
         } else {
           if (_config.canvasState.length >= 1) {
-            console.log(3333)
             _config.undoFinishedStatus = 0;
             if (_config.currentStateIndex != 0) {
               _config.undoStatus = true;
@@ -123,7 +119,6 @@
           }
         }
       }
-      console.log('undo', _config);
     }
 
     var redo = function () {
@@ -151,7 +146,6 @@
           }
         }
       }
-      console.log('redo', _config);
     }
 
     return {

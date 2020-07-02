@@ -4,32 +4,90 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>21、Pattern</title>
+  <title>21、网格放到组里，方便隐藏和显示</title>
+  <style>
+    .canvas-box {
+      position: relative;
+      width: 800px;
+      height: 600px;
+      background-color: orange;
+    }
+    .canvas {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 80%;
+      height: 80%;
+      transform: translate(-50%, -50%);
+      overflow: auto;
+    }
+  </style>
 </head>
 <body>
-  <canvas id="c"></canvas>
+<label><input type="checkbox" id="grid" checked>网格</label>
+<div class="canvas-box">
+  <div class="canvas">
+    <canvas id="c"></canvas>
+  </div>
+</div>
 <script src="./bower_components/jQuery/dist/jquery.js"></script>
 <script src="./bower_components/fabric.js/dist/fabric.js"></script>
 <script>
-var canvas = new fabric.Canvas('c', { width: 500, height: 300, backgroundColor: '#ccc' })
-var shape = new fabric.Rect({
-  width: 200,
-  height: 100,
-  left: 10,
-  top: 10,
-})
-canvas.add(shape)
-// 控制不透明
-fabric.Object.prototype.transparentCorners = false
-let imgUrl = 'http://www.ali-exmail.cn/templets/amseo/images/login_bg1.jpg'
-fabric.util.loadImage(imgUrl, img => {
-  console.log(12121212)
-  shape.set('fill', new fabric.Pattern({
-    source: img,
-    repeat: 'repeat'
-  }));
-  canvas.renderAll()
-})
+  var canvas = new fabric.Canvas('c', { width: 801, height: 501 });
+  canvas.setWidth(101).setHeight(51)
+  var group = draw_grid(canvas);
+  $('#grid').change(function () {
+    var isShow = $(this).prop('checked');
+    if (isShow) {
+      group.set('visible', true);
+    } else {
+      group.set('visible', false);
+    }
+    canvas.requestRenderAll();
+  });
+  function draw_grid (canvas, opts = {}) {
+    var group = new fabric.Group([], { selectable: false, excludeFromExport: true });
+    var options = $.extend({
+      // 线之间的距离
+      distance: 20,
+      // 宽度
+      width: canvas.width,
+      // 高度
+      height: canvas.height,
+      params: {
+        // 描边颜色
+        stroke: 'red',
+        // 描边宽度
+        strokeWidth: 1,
+        // 虚线
+        strokeDashArray: [],
+        // 默认不可选择
+        selectable: false
+      }
+    }, opts);
+    // 需要绘制的条数
+    var gridLen = options.width / options.distance;
+    for (var i = 0; i < gridLen; i++) {
+      var distance = i * options.distance;
+      // 实线、虚线以及颜色切换
+      if (i % 5 === 0) {
+        options.params.strokeDashArray = [];
+        options.params.stroke = '#ccc';
+      }
+      else {
+        options.params.strokeDashArray = [1, 1];
+        options.params.stroke = '#ebebeb';
+      }
+      // 竖线
+      var horizontal = new fabric.Line([distance, 0, distance, options.width], options.params);
+      // 横线
+      var vertical = new fabric.Line([0, distance, options.width, distance], options.params);
+      group.addWithUpdate(horizontal)
+      group.addWithUpdate(vertical)
+    }
+    canvas.add(group);
+    return group;
+  }
 </script>
 </body>
 </html>

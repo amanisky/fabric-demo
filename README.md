@@ -116,6 +116,13 @@
 + 16、与画布外的对象交互
 + 17、**扩展自定义属性，用来传递数据**
 + 18、**加载SVG不分组**
++ 19、undo、redo
++ 20、撤销、重做
++ 21、网格放入组中，方便显示和隐藏
++ 22、保存为图片
++ 23、**svg base64 动态网格**
++ 24、**使用生成的网格作为画布背景平铺**
+  + 参考地址：http://fabricjs.com/test/svg_export/bg_patterns_gradients.html
 
 ### 重点
 + 图形变换了，controls 也得做相应变换；否则就会出现错位
@@ -145,7 +152,9 @@
 + 自由绘图
   + http://fabricjs.com/freedrawing
 + 图形边界交叉处理
-  + http://fabricjs.com/intersection  
+  + http://fabricjs.com/intersection
++ 粘贴图片到画布
+  + https://codepen.io/Nikki0417/pen/YYJKbQ  
 
 
 ### 参考链接
@@ -171,6 +180,14 @@
 + 实现下载
   + **http://41j.com/blog/2015/01/creating-svg-javascript-using-fabricjs-downloading-locally/**
 + undo、redo
+<<<<<<< HEAD
   + **https://jsfiddle.net/tazehale/q2mz23xb/**
 + toJSON 时附加自定义属性  
   + https://itnext.io/video-element-serialization-and-deserialization-of-canvas-fc5dbf47666d  
+=======
+  + **https://jsfiddle.net/tazehale/q2mz23xb/**  
++ 读取 svg 不分组的另一种实现方式
+  + http://www.independent-software.com/loading-an-svg-image-with-fabric-js.html
++ 在画布上绘制圆
+  + http://jsfiddle.net/8u1cqasa/17/  
+>>>>>>> 17e76822e6cd1a2ab27640bba1258dd68f39fe8b

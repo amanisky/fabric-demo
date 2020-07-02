@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>22、保存为本地文件</title>
+</head>
+<body>
+<button id="save">保存</button>
+<div id="dwn"></div>
+<canvas id="c"></canvas>
+<script src="./bower_components/jQuery/dist/jquery.js"></script>
+<script src="./bower_components/fabric.js/dist/fabric.js"></script>
+<script>
+  var canvas = new fabric.Canvas('c', { width: 500, height: 500, backgroundColor: '#ccc' });
+  fabric.Image.fromURL('images/qq.png', function(img) {
+    canvas.add(img);
+  }, { left: 100, top: 100 });
+  function do_save() {
+    var filedata = canvas.toSVG(); // the SVG file is now in filedata
+    var locfile = new Blob([filedata], {type: "image/svg+xml; charset=utf-8"});
+    var locfilesrc = URL.createObjectURL(locfile);
+    $('#dwn').empty().append(`<a href="${locfilesrc}" download="a.svg">点击下载</a>`);
+  }
+  $('#save').click(function () {
+    do_save();
+  });
+</script>
+</body>
+</html>
