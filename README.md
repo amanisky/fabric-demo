@@ -180,14 +180,11 @@
 + 实现下载
   + **http://41j.com/blog/2015/01/creating-svg-javascript-using-fabricjs-downloading-locally/**
 + undo、redo
-<<<<<<< HEAD
   + **https://jsfiddle.net/tazehale/q2mz23xb/**
 + toJSON 时附加自定义属性  
   + https://itnext.io/video-element-serialization-and-deserialization-of-canvas-fc5dbf47666d  
-=======
   + **https://jsfiddle.net/tazehale/q2mz23xb/**  
 + 读取 svg 不分组的另一种实现方式
   + http://www.independent-software.com/loading-an-svg-image-with-fabric-js.html
 + 在画布上绘制圆
   + http://jsfiddle.net/8u1cqasa/17/  
->>>>>>> 17e76822e6cd1a2ab27640bba1258dd68f39fe8b
